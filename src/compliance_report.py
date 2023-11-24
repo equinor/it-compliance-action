@@ -17,7 +17,7 @@ class ComplianceReport:
         self.has_licence = False
         self.checklist = dict[str, ComplianceItem]()
 
-        with open('src/compliance_checklist.yml', 'r') as stream:
+        with open('/usr/src/compliance_checklist.yml', 'r') as stream:
             c = yaml.safe_load(stream)
             for i in c:
                 self.checklist[i['id']] = ComplianceItem(i['id'], i['title'], i['description'], i['reference'])
