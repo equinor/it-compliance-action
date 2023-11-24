@@ -29,6 +29,7 @@ class ComplianceIssuePublisher:
 
                     {issue.description}
                     '''
+            self.repo.create_issue(title=title, body=body, labels=['compliance'])
         
 
 
