@@ -1,3 +1,4 @@
+from operator import contains
 from typing import Sequence
 from compliance_report import ComplianceReport
 from github import Github, Issue, Auth
@@ -28,6 +29,8 @@ reference: {issue.reference}
 
 {issue.description}
 '''
+            if any([i.title is title and i.body is body for i in active_issues]):
+                pass
             self.repo.create_issue(title=title, body=body, labels=['compliance'])
         
 
