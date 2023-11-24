@@ -1,0 +1,8 @@
+name: "Equinor Compliance"
+description: "Scans repository for Equinor Compliance in accordance with governing documents"
+outputs:
+  compliance:
+    description: "An object representing the compliance checklist"
+runs:
+  using: "docker"
+  image: "Dockerfile"

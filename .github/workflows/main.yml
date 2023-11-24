@@ -1,0 +1,18 @@
+on: [push]
+
+jobs: 
+  test_job:
+    runs-on: ubuntu-latest
+    name: Testing github action on it's own repo
+    permissions:
+      issues:   write
+      contents: read
+    steps:
+      - name: Checkout
+        id:   checkout
+        uses: actions/checkout@v4
+      - name: Scan repo
+        id:   scan
+        uses: ./
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
