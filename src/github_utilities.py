@@ -20,15 +20,14 @@ class ComplianceIssuePublisher:
         found_issues = [x for x in compliance_report.issues]
         for issue in found_issues:
             title = f'Compliance: {issue.title}'
-            body = f'''
-                    ---
-                    id: {issue.id}
-                    reference: {issue.reference}
-                    ---
-                    **Description**
+            body = f'''---
+id: {issue.id}
+reference: {issue.reference}
+---
+**Description**
 
-                    {issue.description}
-                    '''
+{issue.description}
+'''
             self.repo.create_issue(title=title, body=body, labels=['compliance'])
         
 
