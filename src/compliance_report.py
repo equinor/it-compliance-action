@@ -29,11 +29,11 @@ class ComplianceReport:
     
     @property
     def issues(self) -> Generator[ComplianceItem, None, None]:
-        if self.has_readme: 
+        if not self.has_readme: 
             yield self.checklist['has_readme']
-        if self.has_security:
+        if not self.has_security:
             yield self.checklist['has_security']
-        if self.has_licence:
+        if not self.has_licence:
             yield self.checklist['has_licence']
 
     
