@@ -2,22 +2,36 @@ import os
 from compliance_checks import ComplianceChecks
 from compliance_report import ComplianceReport
 from github_utilities import ComplianceIssuePublisher
+from github import Github, Issue, Auth
 
 
 
 if __name__ == '__main__':
+    #
+    acces_token = os.environ.get('GITHUB_TOKEN')
+    repo_uri = os.environ.get('GITHUB_REPOSITORY')
+    branch_name = os.environ.get('GITHUB_REF_NAME') or ''
+    if(repo_uri is None or acces_token is None):
+        raise Exception('Could not find repository')
+    token = Auth.Token(acces_token)
+    
+    github = Github(auth=token)
+    repo = github.get_repo(repo_uri)
+    branch = repo.get_branch(branch_name)
+    
+    
     # Create the compliance report object
     compliance_report = ComplianceReport()
 
     # Run compliance checks
-    ComplianceChecks.check_readme(compliance_report)
-    ComplianceChecks.check_security(compliance_report)
-    ComplianceChecks.check_licence(compliance_report)
-    ComplianceChecks.check_source(compliance_report)
-    ComplianceChecks.check_owners(compliance_report)
-    ComplianceChecks.check_commits(compliance_report)
-    ComplianceChecks.check_cicd(compliance_report)
-    ComplianceChecks.check_tags(compliance_report)
+    ComplianceChecks.check_readme(repo, compliance_report)
+    ComplianceChecks.check_security(repo, compliance_report)
+    ComplianceChecks.check_licence(repo, compliance_report)
+    ComplianceChecks.check_source(repo, compliance_report)
+    ComplianceChecks.check_owners(repo, compliance_report)
+    ComplianceChecks.check_commits(repo, compliance_report)
+    ComplianceChecks.check_cicd(repo, compliance_report)
+    ComplianceChecks.check_tags(repo, compliance_report)
     
     # Write report to output
     output_file_name = os.environ.get('GITHUB_OUTPUT', 'github_output.txt')
@@ -27,5 +41,4 @@ if __name__ == '__main__':
 
 
     # For each failed compliance item, if the issue does not already exist, create it
-    issue_publisher = ComplianceIssuePublisher()
-    issue_publisher.publish_issues(compliance_report=compliance_report)
+    ComplianceIssuePublisher.publish_issues(repo, compliance_report=compliance_report)

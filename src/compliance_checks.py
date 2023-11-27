@@ -1,10 +1,11 @@
 import os
 from compliance_report import ComplianceReport
+from github.Repository import Repository
 
 class ComplianceChecks: 
 
     @staticmethod
-    def check_readme(compliance_report: ComplianceReport) -> None:
+    def check_readme(repo: Repository, compliance_report: ComplianceReport) -> None:
         readme_paths = ['README.md', 'docs/README.md']
         for path in readme_paths:
             if os.path.exists(path):
@@ -12,7 +13,7 @@ class ComplianceChecks:
                 break
 
     @staticmethod
-    def check_security(compliance_report: ComplianceReport) -> None:
+    def check_security(repo: Repository, compliance_report: ComplianceReport) -> None:
         readme_paths = ['SECURITY.md', 'docs/SECURITY.md']
         for path in readme_paths:
             if os.path.exists(path):
@@ -20,26 +21,30 @@ class ComplianceChecks:
                 break
 
     @staticmethod
-    def check_licence(compliance_report: ComplianceReport) -> None:
+    def check_licence(repo: Repository, compliance_report: ComplianceReport) -> None:
+        if repo.visibility == 'public':
+            print('Repository is not open, so we do not check for a licence')
+            return
         if os.path.exists('LICENCE'):
+            print('Repository is open, so we check for a licence')
             compliance_report.has_licence = True
 
     @staticmethod
-    def check_source(compliance_report: ComplianceReport) -> None:
+    def check_source(repo: Repository, compliance_report: ComplianceReport) -> None:
         pass
 
     @staticmethod
-    def check_owners(compliance_report: ComplianceReport) -> None:
+    def check_owners(repo: Repository, compliance_report: ComplianceReport) -> None:
         pass
 
     @staticmethod
-    def check_commits(compliance_report: ComplianceReport) -> None:
+    def check_commits(repo: Repository, compliance_report: ComplianceReport) -> None:
         pass
 
     @staticmethod
-    def check_cicd(compliance_report: ComplianceReport) -> None:
+    def check_cicd(repo: Repository, compliance_report: ComplianceReport) -> None:
         pass
     
     @staticmethod
-    def check_tags(compliance_report: ComplianceReport) -> None:
+    def check_tags(repo: Repository, compliance_report: ComplianceReport) -> None:
         pass
