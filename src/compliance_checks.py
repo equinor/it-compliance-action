@@ -22,11 +22,9 @@ class ComplianceChecks:
 
     @staticmethod
     def check_licence(repo: Repository, compliance_report: ComplianceReport) -> None:
-        if repo.visibility == 'public':
-            print('Repository is not open, so we do not check for a licence')
+        if repo.visibility != 'public':
             return
         if os.path.exists('LICENCE'):
-            print('Repository is open, so we check for a licence')
             compliance_report.has_licence = True
 
     @staticmethod
