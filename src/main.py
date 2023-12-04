@@ -1,4 +1,5 @@
 import os
+import logging
 from compliance_checks import ComplianceChecks
 from compliance_report import ComplianceReport
 from github_utilities import ComplianceIssuePublisher
@@ -6,20 +7,24 @@ from github import Github, Issue, Auth
 
 
 
+
 if __name__ == '__main__':
     #
+
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+
+
     acces_token = os.environ.get('GITHUB_TOKEN')
     repo_uri = os.environ.get('GITHUB_REPOSITORY')
-    branch_name = os.environ.get('GITHUB_REF_NAME') or ''
-    if(repo_uri is None or acces_token is None):
+    branch_name = os.environ.get('GITHUB_REF_NAME')
+    if(repo_uri is None or acces_token is None or branch_name is None):
         raise Exception('Could not find repository')
     token = Auth.Token(acces_token)
     
     github = Github(auth=token)
     repo = github.get_repo(repo_uri)
     branch = repo.get_branch(branch_name)
-    
-    
     # Create the compliance report object
     compliance_report = ComplianceReport()
 
@@ -42,3 +47,4 @@ if __name__ == '__main__':
 
     # For each failed compliance item, if the issue does not already exist, create it
     ComplianceIssuePublisher.publish_issues(repo, compliance_report=compliance_report)
+    print(0)
