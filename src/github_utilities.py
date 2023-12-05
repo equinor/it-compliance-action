@@ -12,13 +12,15 @@ class ComplianceIssuePublisher:
         active_issues = ComplianceIssuePublisher._get_compliance_issues(repo)
         for issue in compliance_report.issues:
             title = f"Compliance: {issue.title}"
+            # Separate the newline replacement out of the f-string
+            description_formatted = issue.description.strip().replace('\n', '\n    ')
             body: str = (
             f"---\n"
             f"id: {issue.id}\n"
             f"reference: {issue.reference}\n"
             f"---\n"
             f"**Description**\n\n"
-            f"{issue.description.strip().replace('\n', '\n    ')}\n"
+            f"{description_formatted}\n"
             )
             if any([i.title == title and i.body == body for i in active_issues]):
                 continue
