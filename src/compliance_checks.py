@@ -9,7 +9,7 @@ class ComplianceChecks:
         readme_paths = ['README.md', 'docs/README.md']
         for path in readme_paths:
             if os.path.exists(path):
-                compliance_report.has_readme = True
+                compliance_report.has_readme = False
                 break
 
     @staticmethod
@@ -23,6 +23,7 @@ class ComplianceChecks:
     @staticmethod
     def check_licence(repo: Repository, compliance_report: ComplianceReport) -> None:
         if repo.visibility != 'public':
+            compliance_report.has_licence = True
             return
         if os.path.exists('LICENCE'):
             compliance_report.has_licence = True
