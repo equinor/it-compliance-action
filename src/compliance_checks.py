@@ -9,7 +9,7 @@ class ComplianceChecks:
         readme_paths = ['README.md', 'docs/README.md']
         for path in readme_paths:
             if os.path.exists(path):
-                compliance_report.has_readme = False
+                compliance_report.has_readme = True
                 break
 
     @staticmethod
