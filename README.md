@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v4 
       - name: Scan repo # Scans the source code and repo for compliance
         id:   scan
-        uses: equinor/it-compliance-action@v0.2.1-alpha
+        uses: equinor/it-compliance-action@v0.2.3-alpha
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
