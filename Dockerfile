@@ -1,4 +1,4 @@
-FROM python:3.9.18-alpine3.18
+FROM python:3.13.0a4-alpine3.18
 
 RUN pip install --no-cache pyyaml PyGithub
 
