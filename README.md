@@ -1,3 +1,5 @@
+> ARCHIVED: We have archived this repo as it falls out of the scope of work for the FOT IT Accelerator Teeam. Please contact frstei@equinor.com for more details.  
+
 # IT Compliance Action
 
 Home of the Github action that scans your repository for Equinor compliance according to [developer.equinor](https://developer.equinor.com)
